@@ -1740,6 +1740,12 @@ image_types:
           config:
             add_drivers:
               - "mlx5_core"
+              - "iscsi_ibft"
+            add_dracutmodules:
+              - "iscsi"
+              - "network"
+            install:
+              - "/usr/sbin/iscsiadm"
       conditions:
         <<: *qcow2_image_config_conditions
         "oracle linux is hostonly":
@@ -1798,6 +1804,17 @@ image_types:
                     label: "root"
                     mountpoint: "/"
                     fstab_options: "defaults"
+    package_sets:
+      os:
+        - *qcow2_pkgset
+        - include:
+            - "iscsi-initiator-utils"
+
+    package_sets:
+      os:
+        - *qcow2_pkgset
+        - include:
+            - "iscsi-initiator-utils"
     blueprint:
       supported_options: *supported_options_disk
 
